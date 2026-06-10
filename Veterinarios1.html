@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Veterinaria Chikawa - Veterinarios</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+body{font-family:"Verdana",Arial,sans-serif;}
+.redondo{border-radius:20px;}
+.table-responsive{overflow-x:auto;margin-top:20px;}
+table{width:100%;border-collapse:collapse;background:white;}
+th{background:#2980b9;color:white;padding:12px;}
+td{padding:12px;border-bottom:1px solid #ddd;}
+tr:nth-child(even){background:#f5f5f5;}
+.input-tabla{width:100%;border:none;background:transparent;outline:none;}
+.bold{font-weight:bold;}
+.center{text-align:center;}
+</style>
+
+</head>
+
+<body class="w3-light-grey">
+
+<header class="w3-container w3-pale-red w3-center w3-padding-16">
+<img src="chikawa.jpg" alt="Logo" style="width:80px" class="w3-circle">
+<h2>Veterinarias Chikawa</h2>
+</header>
+
+<nav class="w3-bar w3-pale-yellow w3-center">
+<a href="Negocio.html" class="w3-bar-item w3-button">Inicio</a>
+<a href="Consultas1.html" class="w3-bar-item w3-button">Consultas</a>
+<a href="Mascotas1.html" class="w3-bar-item w3-button">Mascotas</a>
+<a href="Duenos1.html" class="w3-bar-item w3-button">Dueños</a>
+<a href="Veterinarios1.html" class="w3-bar-item w3-button w3-gray">Veterinarios</a>
+</nav>
+
+<div class="w3-container w3-padding-24">
+
+<div class="w3-panel w3-pale-blue w3-padding-32 redondo w3-card">
+<h4>¡Hola! Bienvenido</h4>
+<p>Veterinarias Chikawa: Cuidando con amor a tus mejores amigos. Salud, confianza y bienestar para tus mascotas en un solo lugar.</p>
+</div>
+
+<div class="w3-row-padding" style="margin-top:24px;">
+
+<div class="w3-col m12 l4 w3-margin-bottom">
+
+<div class="w3-container w3-white w3-padding-16 w3-card redondo">
+
+<h3 class="w3-center" style="color:#2980b9;text-transform:uppercase;letter-spacing:1px;font-weight:bold;border-bottom:3px solid #2980b9;padding-bottom:10px;">
+Ingresar Datos
+</h3>
+
+<form id="formularioVeterinario">
+
+<div class="table-responsive">
+
+<table>
+
+<thead>
+
+<tr>
+<th style="width:40%;">Dato</th>
+<th style="width:60%;">Valor</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td class="bold">Num</td>
+<td><input class="input-tabla" type="number" id="txtNum" min="1" required></td>
+</tr>
+
+<tr>
+<td class="bold">Veterinario</td>
+<td><input class="input-tabla" type="text" id="txtVeterinario" pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,40}" title="Solo letras" required></td>
+</tr>
+
+<tr>
+<td class="bold">Cédula</td>
+<td><input class="input-tabla" type="text" id="txtCedula" pattern="[0-9]{6,12}" maxlength="12" required></td>
+</tr>
+
+<tr>
+<td class="bold">RFC</td>
+<td><input class="input-tabla" type="text" id="txtRFC" maxlength="13" required></td>
+</tr>
+
+<tr>
+<td class="bold">Horario</td>
+<td><input class="input-tabla" type="text" id="txtHorario" required></td>
+</tr>
+
+<tr>
+<td class="bold">Teléfono</td>
+<td><input class="input-tabla" type="tel" id="txtTelefono" pattern="[0-9]{10}" maxlength="10" title="Debe tener 10 números" required></td>
+</tr>
+
+<tr>
+<td class="bold">Consultorio</td>
+<td><input class="input-tabla" type="text" id="txtConsultorio" required></td>
+</tr>
+
+<tr>
+<td class="bold">Especialidad</td>
+<td>
+<select class="input-tabla" id="txtEspecialidad" required>
+<option value="">Selecciona</option>
+<option>Cirugía</option>
+<option>Dermatología</option>
+<option>Odontología</option>
+<option>Medicina General</option>
+<option>Urgencias</option>
+<option>Exóticos</option>
+</select>
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<button type="submit" class="w3-button w3-block w3-margin-top w3-ripple w3-text-white bold" style="background-color:#2980b9;border-radius:8px;">
+Agregar Veterinario
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="w3-col m12 l8">
+
+<div class="w3-container w3-white w3-padding-16 w3-card redondo">
+
+<h3 class="w3-center" style="color:#2980b9;text-transform:uppercase;letter-spacing:1px;font-weight:bold;border-bottom:3px solid #2980b9;padding-bottom:10px;">
+Veterinarios
+</h3>
+
+<input type="text" id="buscador" class="w3-input w3-border w3-margin-bottom" placeholder="Buscar veterinario..." onkeyup="buscarVeterinario()">
+
+<div class="table-responsive">
+
+<table>
+
+<thead>
+
+<tr>
+<th class="center">Num</th>
+<th>Médico Veterinario</th>
+<th>Cédula</th>
+<th>RFC</th>
+<th>Horario</th>
+<th>Teléfono</th>
+<th class="center">Consultorio</th>
+<th>Especialidad</th>
+<th>Acciones</th>
+</tr>
+
+</thead>
+
+<tbody id="tablaVeterinarios">
+</tbody>
+
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="w3-panel w3-pale-green w3-round-xlarge w3-center" style="margin-top:32px;">
+
+    <img src="chikawa.jpg"
+         alt="Logo Chikawa"
+         style="width:70px;"
+         class="w3-circle">
+
+    <p>Edith Jimena Barraza Reyes | 4-J | 0802</p>
+    <p>Materia :Implementa Base de Datos No relacionales en un sistema</p>
+    <p>Maestra:Meza Leticia Diaz</p>
+
+</div>
+
+</div>
+
+<script>
+
+const BASE_URL = window.location.origin;
+const API_URL = `${BASE_URL}/api/veterinarios`;
+
+let idEditando = null;
+
+async function cargarTabla(){
+
+    try{
+
+        const respuesta = await fetch(API_URL);
+        const veterinarios = await respuesta.json();
+
+        window.veterinariosGlobal = veterinarios;
+
+        const tbody = document.getElementById("tablaVeterinarios");
+
+        tbody.innerHTML = "";
+
+        veterinarios.forEach(v => {
+
+            const fila = document.createElement("tr");
+
+            fila.innerHTML = `
+                <td>${v.num || ''}</td>
+                <td>${v.veterinario || ''}</td>
+                <td>${v.cedula || ''}</td>
+                <td>${v.rfc || ''}</td>
+                <td>${v.horario || ''}</td>
+                <td>${v.telefono || ''}</td>
+                <td>${v.consultorio || ''}</td>
+                <td>${v.especialidad || ''}</td>
+
+                <td>
+
+                    <button
+                        class="w3-button w3-blue w3-small"
+                        onclick="editarVeterinario('${v._id}')">
+                        Editar
+                    </button>
+
+                    <button
+                        class="w3-button w3-red w3-small"
+                        onclick="eliminarVeterinario('${v._id}')">
+                        Eliminar
+                    </button>
+
+                </td>
+            `;
+
+            tbody.appendChild(fila);
+
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+document.getElementById("formularioVeterinario")
+.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const objetoVeterinario = {
+
+        num: Number(document.getElementById("txtNum").value),
+        veterinario: document.getElementById("txtVeterinario").value,
+        cedula: document.getElementById("txtCedula").value,
+        rfc: document.getElementById("txtRFC").value,
+        horario: document.getElementById("txtHorario").value,
+        telefono: document.getElementById("txtTelefono").value,
+        consultorio: document.getElementById("txtConsultorio").value,
+        especialidad: document.getElementById("txtEspecialidad").value
+
+    };
+
+    try{
+
+        let respuesta;
+
+        if(idEditando){
+
+            respuesta = await fetch(`${API_URL}/${idEditando}`,{
+
+                method:"PUT",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body: JSON.stringify(objetoVeterinario)
+
+            });
+
+        }else{
+
+            respuesta = await fetch(API_URL,{
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body: JSON.stringify(objetoVeterinario)
+
+            });
+
+        }
+
+        if(respuesta.ok){
+
+            alert(
+                idEditando
+                ? "Veterinario actualizado"
+                : "Veterinario guardado"
+            );
+
+            document
+            .getElementById("formularioVeterinario")
+            .reset();
+
+            idEditando = null;
+
+            cargarTabla();
+
+        }else{
+
+            alert("Error al guardar");
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+});
+
+function editarVeterinario(id){
+
+    const veterinario =
+    window.veterinariosGlobal.find(
+        v => v._id === id
+    );
+
+    idEditando = id;
+
+    document.getElementById("txtNum").value =
+    veterinario.num;
+
+    document.getElementById("txtVeterinario").value =
+    veterinario.veterinario;
+
+    document.getElementById("txtCedula").value =
+    veterinario.cedula;
+
+    document.getElementById("txtRFC").value =
+    veterinario.rfc;
+
+    document.getElementById("txtHorario").value =
+    veterinario.horario;
+
+    document.getElementById("txtTelefono").value =
+    veterinario.telefono;
+
+    document.getElementById("txtConsultorio").value =
+    veterinario.consultorio;
+
+    document.getElementById("txtEspecialidad").value =
+    veterinario.especialidad;
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+async function eliminarVeterinario(id){
+
+    const confirmar =
+    confirm("¿Deseas eliminar este veterinario?");
+
+    if(!confirmar) return;
+
+    try{
+
+        const respuesta =
+        await fetch(`${API_URL}/${id}`,{
+
+            method:"DELETE"
+
+        });
+
+        if(respuesta.ok){
+
+            alert("Veterinario eliminado");
+
+            cargarTabla();
+
+        }else{
+
+            alert("No se pudo eliminar");
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+function buscarVeterinario(){
+
+    const texto =
+    document.getElementById("buscador")
+    .value
+    .toLowerCase();
+
+    const filas =
+    document.querySelectorAll("#tablaVeterinarios tr");
+
+    filas.forEach(fila => {
+
+        const contenido =
+        fila.textContent.toLowerCase();
+
+        fila.style.display =
+        contenido.includes(texto)
+        ? ""
+        : "none";
+
+    });
+
+}
+
+window.onload = cargarTabla;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Veterinaria Chikawa - Dueños</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+body{font-family:"Verdana",Arial,sans-serif;}
+.redondo{border-radius:20px;}
+.table-responsive{overflow-x:auto;margin-top:20px;}
+table{width:100%;border-collapse:collapse;background:white;}
+th{background:#16a085;color:white;padding:12px;}
+td{padding:12px;border-bottom:1px solid #ddd;}
+tr:nth-child(even){background:#f5f5f5;}
+.input-tabla{width:100%;border:none;background:transparent;outline:none;}
+.bold{font-weight:bold;}
+.center{text-align:center;}
+</style>
+
+</head>
+
+<body class="w3-light-grey">
+
+<header class="w3-container w3-pale-red w3-center w3-padding-16">
+<img src="chikawa.jpg" alt="Logo" style="width:80px" class="w3-circle">
+<h2>Veterinarias Chikawa</h2>
+</header>
+
+<nav class="w3-bar w3-pale-yellow w3-center">
+<a href="Negocio.html" class="w3-bar-item w3-button">Inicio</a>
+<a href="Consultas1.html" class="w3-bar-item w3-button">Consultas</a>
+<a href="Mascotas1.html" class="w3-bar-item w3-button">Mascotas</a>
+<a href="Duenos1.html" class="w3-bar-item w3-button w3-gray">Dueños</a>
+<a href="Veterinarios1.html" class="w3-bar-item w3-button">Veterinarios</a>
+</nav>
+
+<div class="w3-container w3-padding-24">
+
+<div class="w3-panel w3-pale-blue w3-padding-32 redondo w3-card">
+<h4>¡Hola! Bienvenido</h4>
+<p>Veterinarias Chikawa: Cuidando con amor a tus mejores amigos. Salud, confianza y bienestar para tus mascotas en un solo lugar.</p>
+</div>
+
+<div class="w3-row-padding" style="margin-top:24px;">
+
+<div class="w3-col m12 l4 w3-margin-bottom">
+
+<div class="w3-container w3-white w3-padding-16 w3-card redondo">
+
+<h3 class="w3-center" style="color:#16a085;text-transform:uppercase;letter-spacing:1px;font-weight:bold;border-bottom:3px solid #16a085;padding-bottom:10px;">
+Ingresar Datos
+</h3>
+
+<form id="formularioDueno">
+
+<div class="table-responsive">
+
+<table>
+
+<thead>
+
+<tr>
+<th style="width:40%;">Dato</th>
+<th style="width:60%;">Valor</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td class="bold">ID Dueño</td>
+<td><input class="input-tabla" type="number" id="txtIdDueno" min="1" required></td>
+</tr>
+
+<tr>
+<td class="bold">Nombre</td>
+<td><input class="input-tabla" type="text" id="txtNombre" pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,40}" title="Solo letras" required></td>
+</tr>
+
+<tr>
+<td class="bold">ID Mascota</td>
+<td><input class="input-tabla" type="number" id="txtIdMascota" min="1" required></td>
+</tr>
+
+<tr>
+<td class="bold">Mascota</td>
+<td><input class="input-tabla" type="text" id="txtMascota" pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,30}" title="Solo letras" required></td>
+</tr>
+
+<tr>
+<td class="bold">Dirección</td>
+<td><input class="input-tabla" type="text" id="txtDireccion" maxlength="80" required></td>
+</tr>
+
+<tr>
+<td class="bold">Teléfono</td>
+<td><input class="input-tabla" type="tel" id="txtTelefono" pattern="[0-9]{10}" maxlength="10" title="Debe tener 10 números" required></td>
+</tr>
+
+<tr>
+<td class="bold">Emergencia</td>
+<td><input class="input-tabla" type="tel" id="txtEmergencia" pattern="[0-9]{10}" maxlength="10" title="Debe tener 10 números" required></td>
+</tr>
+
+<tr>
+<td class="bold">Correo</td>
+<td><input class="input-tabla" type="email" id="txtCorreo" required></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<button type="submit" class="w3-button w3-block w3-margin-top w3-ripple w3-text-white bold" style="background-color:#16a085;border-radius:8px;">
+Guardar Propietario
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="w3-col m12 l8">
+
+<div class="w3-container w3-white w3-padding-16 w3-card redondo">
+
+<h3 class="w3-center" style="color:#16a085;text-transform:uppercase;letter-spacing:1px;font-weight:bold;border-bottom:3px solid #16a085;padding-bottom:10px;">
+Propietarios
+</h3>
+
+<input type="text" id="buscador" class="w3-input w3-border w3-margin-bottom" placeholder="Buscar propietario o mascota..." onkeyup="buscarDueno()">
+
+<div class="table-responsive">
+
+<table>
+
+<thead>
+
+<tr>
+<th class="center">ID</th>
+<th>Propietario</th>
+<th class="center">ID Mascota</th>
+<th>Nombre Mascota</th>
+<th>Dirección</th>
+<th>Teléfono</th>
+<th>Emergencia</th>
+<th>Correo</th>
+<th>Acciones</th>
+</tr>
+
+</thead>
+
+<tbody id="tablaDuenos">
+
+<tr>
+<td>1</td>
+<td>María López</td>
+<td>101</td>
+<td>Firulais</td>
+<td>Colonia Centro</td>
+<td>6141234567</td>
+<td>6149876543</td>
+<td>maria@gmail.com</td>
+
+<td>
+
+<button class="w3-button w3-blue w3-small">
+Editar
+</button>
+
+<button class="w3-button w3-red w3-small">
+Eliminar
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="w3-panel w3-pale-green w3-round-xlarge w3-center" style="margin-top:32px;">
+
+    <img src="chikawa.jpg"
+         alt="Logo Chikawa"
+         style="width:70px;"
+         class="w3-circle">
+
+    <p>Edith Jimena Barraza Reyes | 4-J | 0802</p>
+    <p>Materia :Implementa Base de Datos No relacionales en un sistema</p>
+    <p>Maestra:Meza Leticia Diaz</p>
+
+</div>
+
+</div>
+
+<script>
+
+
+const BASE_URL = window.location.origin;
+const API_URL=`${BASE_URL}/api/duenos`;
+
+let idEditando=null;
+
+async function cargarTabla(){
+
+try{
+
+const respuesta=await fetch(API_URL);
+const duenos=await respuesta.json();
+
+window.duenosGlobal=duenos;
+
+const tbody=document.getElementById("tablaDuenos");
+
+tbody.innerHTML="";
+
+duenos.forEach(d=>{
+
+const fila=document.createElement("tr");
+
+fila.innerHTML=`
+
+<td>${d.id_dueno||''}</td>
+<td>${d.nombre||''}</td>
+<td>${d.id_mascota||''}</td>
+<td>${d.mascota||''}</td>
+<td>${d.direccion||''}</td>
+<td>${d.telefono||''}</td>
+<td>${d.emergencia||''}</td>
+<td>${d.correo||''}</td>
+
+<td>
+
+<button class="w3-button w3-blue w3-small"
+onclick="editarDueno('${d._id}')">
+Editar
+</button>
+
+<button class="w3-button w3-red w3-small"
+onclick="eliminarDueno('${d._id}')">
+Eliminar
+</button>
+
+</td>
+
+`;
+
+tbody.appendChild(fila);
+
+});
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+document.getElementById("formularioDueno")
+.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const objetoDueno={
+
+id_dueno:Number(document.getElementById("txtIdDueno").value),
+nombre:document.getElementById("txtNombre").value,
+id_mascota:Number(document.getElementById("txtIdMascota").value),
+mascota:document.getElementById("txtMascota").value,
+direccion:document.getElementById("txtDireccion").value,
+telefono:document.getElementById("txtTelefono").value,
+emergencia:document.getElementById("txtEmergencia").value,
+correo:document.getElementById("txtCorreo").value
+
+};
+
+try{
+
+let respuesta;
+
+if(idEditando){
+
+respuesta=await fetch(`${API_URL}/${idEditando}`,{
+
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(objetoDueno)
+
+});
+
+}else{
+
+respuesta=await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(objetoDueno)
+
+});
+
+}
+
+if(respuesta.ok){
+
+alert(idEditando
+?"Propietario actualizado"
+:"Propietario guardado");
+
+document.getElementById("formularioDueno").reset();
+
+idEditando=null;
+
+cargarTabla();
+
+}else{
+
+alert("Error al guardar");
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+});
+
+function editarDueno(id){
+
+const dueno=
+window.duenosGlobal.find(
+d=>d._id===id
+);
+
+idEditando=id;
+
+document.getElementById("txtIdDueno").value=
+dueno.id_dueno;
+
+document.getElementById("txtNombre").value=
+dueno.nombre;
+
+document.getElementById("txtIdMascota").value=
+dueno.id_mascota;
+
+document.getElementById("txtMascota").value=
+dueno.mascota;
+
+document.getElementById("txtDireccion").value=
+dueno.direccion;
+
+document.getElementById("txtTelefono").value=
+dueno.telefono;
+
+document.getElementById("txtEmergencia").value=
+dueno.emergencia;
+
+document.getElementById("txtCorreo").value=
+dueno.correo;
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+async function eliminarDueno(id){
+
+const confirmar=
+confirm("¿Deseas eliminar este propietario?");
+
+if(!confirmar)return;
+
+try{
+
+const respuesta=
+await fetch(`${API_URL}/${id}`,{
+
+method:"DELETE"
+
+});
+
+if(respuesta.ok){
+
+alert("Propietario eliminado");
+
+cargarTabla();
+
+}else{
+
+alert("No se pudo eliminar");
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+function buscarDueno(){
+
+const texto=
+document.getElementById("buscador")
+.value
+.toLowerCase();
+
+const filas=
+document.querySelectorAll("#tablaDuenos tr");
+
+filas.forEach(fila=>{
+
+const contenido=
+fila.textContent.toLowerCase();
+
+fila.style.display=
+contenido.includes(texto)
+?""
+:"none";
+
+});
+
+}
+
+window.onload=cargarTabla;
+
+</script>
+
+</body>
+</html>

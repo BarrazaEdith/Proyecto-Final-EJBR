@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Veterinaria Chikawa - Consultas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+body{font-family:"Verdana",Arial,sans-serif;}
+.redondo{border-radius:20px;}
+.table-responsive{overflow-x:auto;margin-top:20px;}
+table{width:100%;border-collapse:collapse;background:white;}
+th{background:#34495e;color:white;padding:12px;}
+td{padding:12px;border-bottom:1px solid #ddd;}
+tr:nth-child(even){background:#f5f5f5;}
+.status{padding:4px 8px;border-radius:5px;font-weight:bold;}
+.pendiente{background:#ffeaa7;color:#d63031;}
+.hecha{background:#55efc4;color:#00b894;}
+.cancelada{background:#ff7675;color:white;}
+.input-tabla{width:100%;border:none;outline:none;background:transparent;}
+</style>
+</head>
+
+<body class="w3-light-grey">
+
+<header class="w3-container w3-pale-red w3-center w3-padding-16">
+<img src="chikawa.jpg" style="width:80px" class="w3-circle">
+<h2>Veterinaria Chikawa</h2>
+</header>
+
+<nav class="w3-bar w3-pale-yellow w3-center">
+<a href="Negocio.html" class="w3-bar-item w3-button">Inicio</a>
+<a href="Consultas1.html" class="w3-bar-item w3-button w3-gray">Consultas</a>
+<a href="Mascotas1.html" class="w3-bar-item w3-button">Mascotas</a>
+<a href="Duenos1.html" class="w3-bar-item w3-button">Dueños</a>
+<a href="Veterinarios1.html" class="w3-bar-item w3-button">Veterinarios</a>
+</nav>
+
+<div class="w3-container w3-padding-24">
+
+<div class="w3-panel w3-pale-blue w3-padding-32 redondo w3-card">
+<h4>¡Hola! Bienvenido</h4>
+<p>Veterinaria Chikawa: Cuidando con amor a tus mejores amigos.</p>
+</div>
+
+<div class="w3-row-padding" style="margin-top:24px;">
+
+<div class="w3-col m12 l4">
+
+<div class="w3-container w3-white w3-padding-16 w3-card redondo">
+
+<h3 class="w3-center">Nueva Consulta</h3>
+
+<form id="formularioConsulta">
+
+<table>
+
+<tr>
+<td>Consulta</td>
+<td><input class="input-tabla" type="number" id="txtConsulta" required></td>
+</tr>
+
+<tr>
+<td>Mascota</td>
+<td><input class="input-tabla" type="text" id="txtMascota" required></td>
+</tr>
+
+<tr>
+<td>ID Mascota</td>
+<td><input class="input-tabla" type="number" id="txtIdMascota" required></td>
+</tr>
+
+<tr>
+<td>Dueño</td>
+<td><input class="input-tabla" type="text" id="txtDueno" required></td>
+</tr>
+
+<tr>
+<td>Especie</td>
+<td><input class="input-tabla" type="text" id="txtEspecie" required></td>
+</tr>
+
+<tr>
+<td>Motivo</td>
+<td><input class="input-tabla" type="text" id="txtMotivo" required></td>
+</tr>
+
+<tr>
+<td>Fecha</td>
+<td><input class="input-tabla" type="date" id="txtFecha" required></td>
+</tr>
+
+<tr>
+<td>Estado</td>
+
+<td>
+<select class="input-tabla" id="txtEstado">
+<option value="Pendiente">Pendiente</option>
+<option value="Hecha">Hecha</option>
+<option value="Cancelada">Cancelada</option>
+</select>
+</td>
+
+</tr>
+
+</table>
+
+<button type="submit" class="w3-button w3-block w3-margin-top w3-text-white" style="background:#34495e;">
+Guardar Consulta
+</button>
+
+</form>
+
+</div>
+</div>
+
+<div class="w3-col m12 l8">
+
+<div class="w3-container w3-white w3-padding-16 w3-card redondo">
+
+<h3 class="w3-center">Registro Consultas</h3>
+
+<input type="text" id="buscador" class="w3-input w3-border w3-margin-bottom" placeholder="Buscar mascota o dueño..." onkeyup="buscarConsulta()">
+
+<div class="table-responsive">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Consulta</th>
+<th>Mascota</th>
+<th>ID Mascota</th>
+<th>Dueño</th>
+<th>Especie</th>
+<th>Motivo</th>
+<th>Diagnóstico</th>
+<th>Tratamiento</th>
+<th>Fecha</th>
+<th>Estado</th>
+<th>Pago</th>
+<th>Acciones</th>
+</tr>
+
+</thead>
+
+<tbody id="tablaResultados"></tbody>
+
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="w3-panel w3-pale-green w3-round-xlarge w3-center" style="margin-top:32px;">
+
+    <img src="chikawa.jpg"
+         alt="Logo Chikawa"
+         style="width:70px;"
+         class="w3-circle">
+
+    <p>Edith Jimena Barraza Reyes | 4-J | 0802</p>
+    <p>Materia :Implementa Base de Datos No relacionales en un sistema</p>
+    <p>Maestra:Meza Leticia Diaz</p>
+
+</div>
+
+<script>
+
+const BASE_URL=window.location.origin;
+const API_URL=`${BASE_URL}/api/consultas`;
+
+let idEditando=null;
+
+async function cargarTabla(){
+
+try{
+
+const respuesta=await fetch(API_URL);
+const consultas=await respuesta.json();
+
+window.consultasGlobal=consultas;
+
+const tbody=document.getElementById("tablaResultados");
+
+tbody.innerHTML="";
+
+consultas.forEach(c=>{
+
+let estiloEstado="pendiente";
+
+if(c.estado?.toLowerCase()==="hecha")estiloEstado="hecha";
+if(c.estado?.toLowerCase()==="cancelada")estiloEstado="cancelada";
+
+const fila=document.createElement("tr");
+
+fila.innerHTML=`
+
+<td>${c.consulta||''}</td>
+
+<td>${c.mascota||''}</td>
+
+<td>${c.id_mascota||''}</td>
+
+<td>${c.dueno||''}</td>
+
+<td>${c.especie||''}</td>
+
+<td>${c.motivo||''}</td>
+
+<td>${c.diagnostico||'Pendiente'}</td>
+
+<td>${c.tratamiento||'Pendiente'}</td>
+
+<td>${c.fecha||''}</td>
+
+<td>
+<span class="status ${estiloEstado}">
+${c.estado||'Pendiente'}
+</span>
+</td>
+
+<td>${c.pago||'Pendiente'}</td>
+
+<td>
+
+<button class="w3-button w3-blue w3-small" onclick="editarConsulta('${c._id}')">
+Editar
+</button>
+
+<button class="w3-button w3-red w3-small" onclick="eliminarConsulta('${c._id}')">
+Eliminar
+</button>
+
+</td>
+
+`;
+
+tbody.appendChild(fila);
+
+});
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+document.getElementById("formularioConsulta")
+.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const objetoConsulta={
+
+consulta:document.getElementById("txtConsulta").value,
+mascota:document.getElementById("txtMascota").value,
+id_mascota:document.getElementById("txtIdMascota").value,
+dueno:document.getElementById("txtDueno").value,
+especie:document.getElementById("txtEspecie").value,
+motivo:document.getElementById("txtMotivo").value,
+fecha:document.getElementById("txtFecha").value,
+estado:document.getElementById("txtEstado").value
+
+};
+
+try{
+
+let respuesta;
+
+if(idEditando){
+
+respuesta=await fetch(`${API_URL}/${idEditando}`,{
+
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(objetoConsulta)
+
+});
+
+}else{
+
+respuesta=await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(objetoConsulta)
+
+});
+
+}
+
+if(respuesta.ok){
+
+alert(idEditando?"Consulta actualizada":"Consulta registrada");
+
+document.getElementById("formularioConsulta").reset();
+
+idEditando=null;
+
+cargarTabla();
+
+}else{
+
+alert("Error al guardar");
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+});
+
+function editarConsulta(id){
+
+const consulta=window.consultasGlobal.find(c=>c._id===id);
+
+idEditando=id;
+
+document.getElementById("txtConsulta").value=consulta.consulta;
+document.getElementById("txtMascota").value=consulta.mascota;
+document.getElementById("txtIdMascota").value=consulta.id_mascota;
+document.getElementById("txtDueno").value=consulta.dueno;
+document.getElementById("txtEspecie").value=consulta.especie;
+document.getElementById("txtMotivo").value=consulta.motivo;
+document.getElementById("txtFecha").value=consulta.fecha;
+document.getElementById("txtEstado").value=consulta.estado;
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+async function eliminarConsulta(id){
+
+const confirmar=confirm("¿Deseas eliminar esta consulta?");
+
+if(!confirmar)return;
+
+try{
+
+const respuesta=await fetch(`${API_URL}/${id}`,{
+method:"DELETE"
+});
+
+if(respuesta.ok){
+
+alert("Consulta eliminada");
+
+cargarTabla();
+
+}else{
+
+alert("No se pudo eliminar");
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+function buscarConsulta(){
+
+const texto=document.getElementById("buscador")
+.value
+.toLowerCase();
+
+const filas=document.querySelectorAll("#tablaResultados tr");
+
+filas.forEach(fila=>{
+
+const contenido=fila.textContent.toLowerCase();
+
+fila.style.display=contenido.includes(texto)
+?""
+:"none";
+
+});
+
+}
+
+window.onload=cargarTabla;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Veterinaria Chikawa - Mascotas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+body{font-family:"Verdana",Arial,sans-serif;}
+.redondo{border-radius:20px;}
+.table-responsive{overflow-x:auto;margin-top:20px;}
+table{width:100%;border-collapse:collapse;background:white;}
+th{background:#2c3e50;color:white;padding:12px;}
+td{padding:12px;border-bottom:1px solid #ddd;}
+tr:nth-child(even){background:#f5f5f5;}
+.input-tabla{width:100%;border:none;background:transparent;outline:none;}
+</style>
+</head>
+
+<body class="w3-light-grey">
+
+<header class="w3-container w3-pale-red w3-center w3-padding-16">
+<img src="chikawa.jpg" style="width:80px" class="w3-circle">
+<h2>Veterinarias Chikawa</h2>
+</header>
+
+<nav class="w3-bar w3-pale-yellow w3-center">
+<a href="Negocio.html" class="w3-bar-item w3-button">Inicio</a>
+<a href="Consultas1.html" class="w3-bar-item w3-button">Consultas</a>
+<a href="Mascotas1.html" class="w3-bar-item w3-button w3-gray">Mascotas</a>
+<a href="Duenos1.html" class="w3-bar-item w3-button">Dueños</a>
+<a href="Veterinarios1.html" class="w3-bar-item w3-button">Veterinarios</a>
+</nav>
+
+<div class="w3-container w3-padding-24">
+
+<div class="w3-panel w3-pale-blue w3-padding-32 redondo w3-card">
+<h4>¡Hola! Bienvenido</h4>
+<p>Veterinarias Chikawa: Cuidando con amor a tus mejores amigos.</p>
+</div>
+
+<div class="w3-row-padding" style="margin-top:24px;">
+
+<div class="w3-col m12 l4">
+
+<div class="w3-container w3-white w3-padding-16 w3-card redondo">
+
+<h3 class="w3-center">Nueva Mascota</h3>
+
+<form id="formularioMascota">
+
+<table>
+
+<tr>
+<td>ID Mascota</td>
+<td>
+<input class="input-tabla" type="number" id="txtIdMascota" min="1" required>
+</td>
+</tr>
+
+<tr>
+<td>Nombre</td>
+<td>
+<input class="input-tabla" type="text" id="txtNombre" pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,30}" title="Solo letras" required>
+</td>
+</tr>
+
+<tr>
+<td>Especie</td>
+<td>
+<select class="input-tabla" id="txtEspecie" required>
+<option value="">Selecciona</option>
+<option>Perro</option>
+<option>Gato</option>
+<option>Ave</option>
+<option>Conejo</option>
+<option>Hamster</option>
+<option>Otro</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Raza</td>
+<td>
+<input class="input-tabla" type="text" id="txtRaza" required>
+</td>
+</tr>
+
+<tr>
+<td>Edad</td>
+<td>
+<input class="input-tabla" type="number" id="txtEdad" min="0" max="30" required>
+</td>
+</tr>
+
+<tr>
+<td>Género</td>
+<td>
+<select class="input-tabla" id="txtGenero" required>
+<option value="">Selecciona</option>
+<option>Macho</option>
+<option>Hembra</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Peso</td>
+<td>
+<input class="input-tabla" type="number" id="txtPeso" step="0.1" min="0.1" max="200" required>
+</td>
+</tr>
+
+<tr>
+<td>Propietario</td>
+<td>
+<input class="input-tabla" type="text" id="txtPropietario" pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,40}" title="Solo letras" required>
+</td>
+</tr>
+
+</table>
+
+<button type="submit" class="w3-button w3-block w3-margin-top w3-text-white" style="background:#2c3e50;">
+Guardar Mascota
+</button>
+
+</form>
+
+</div>
+</div>
+
+<div class="w3-col m12 l8">
+
+<div class="w3-container w3-white w3-padding-16 w3-card redondo">
+
+<h3 class="w3-center">Registro de Mascotas</h3>
+
+<input type="text" id="buscador" class="w3-input w3-border w3-margin-bottom" placeholder="Buscar mascota..." onkeyup="buscarMascota()">
+
+<div class="table-responsive">
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Especie</th>
+<th>Raza</th>
+<th>Edad</th>
+<th>Género</th>
+<th>Peso</th>
+<th>Propietario</th>
+<th>Color</th>
+<th>Vacunas</th>
+<th>Acciones</th>
+</tr>
+
+</thead>
+
+<tbody id="tablaMascotas"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="w3-panel w3-pale-green w3-round-xlarge w3-center" style="margin-top:32px;">
+
+    <img src="chikawa.jpg"
+         alt="Logo Chikawa"
+         style="width:70px;"
+         class="w3-circle">
+
+    <p>Edith Jimena Barraza Reyes | 4-J | 0802</p>
+    <p>Materia :Implementa Base de Datos No relacionales en un sistema</p>
+    <p>Maestra:Meza Leticia Diaz</p>
+
+</div>
+
+<script>
+
+const BASE_URL=window.location.origin;
+const API_URL=`${BASE_URL}/api/mascotas`;
+
+let idEditando=null;
+
+async function cargarTabla(){
+
+try{
+
+const respuesta=await fetch(API_URL);
+
+const mascotas=await respuesta.json();
+
+window.mascotasGlobal=mascotas;
+
+const tbody=document.getElementById("tablaMascotas");
+
+tbody.innerHTML="";
+
+mascotas.forEach(m=>{
+
+const fila=document.createElement("tr");
+
+fila.innerHTML=`
+
+<td>${m.id_mascota||''}</td>
+<td>${m.nombre||''}</td>
+<td>${m.especie||''}</td>
+<td>${m.raza||''}</td>
+<td>${m.edad||''}</td>
+<td>${m.genero||''}</td>
+<td>${m.peso||''} kg</td>
+<td>${m.propietario||''}</td>
+<td>${m.color||'Pendiente'}</td>
+<td>${m.vacunas||'Pendiente'}</td>
+
+<td>
+
+<button class="w3-button w3-blue w3-small" onclick="editarMascota('${m._id}')">
+Editar
+</button>
+
+<button class="w3-button w3-red w3-small" onclick="eliminarMascota('${m._id}')">
+Eliminar
+</button>
+
+</td>
+
+`;
+
+tbody.appendChild(fila);
+
+});
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+document.getElementById("formularioMascota")
+.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const objetoMascota={
+
+id_mascota:document.getElementById("txtIdMascota").value,
+nombre:document.getElementById("txtNombre").value,
+especie:document.getElementById("txtEspecie").value,
+raza:document.getElementById("txtRaza").value,
+edad:document.getElementById("txtEdad").value,
+genero:document.getElementById("txtGenero").value,
+peso:document.getElementById("txtPeso").value,
+propietario:document.getElementById("txtPropietario").value
+
+};
+
+try{
+
+let respuesta;
+
+if(idEditando){
+
+respuesta=await fetch(`${API_URL}/${idEditando}`,{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(objetoMascota)
+});
+
+}else{
+
+respuesta=await fetch(API_URL,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(objetoMascota)
+});
+
+}
+
+if(respuesta.ok){
+
+alert(idEditando?"Mascota actualizada":"Mascota registrada");
+
+document.getElementById("formularioMascota").reset();
+
+idEditando=null;
+
+cargarTabla();
+
+}else{
+
+alert("Error al guardar");
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+});
+
+function editarMascota(id){
+
+const mascota=window.mascotasGlobal.find(
+m=>m._id===id
+);
+
+idEditando=id;
+
+document.getElementById("txtIdMascota").value=mascota.id_mascota;
+document.getElementById("txtNombre").value=mascota.nombre;
+document.getElementById("txtEspecie").value=mascota.especie;
+document.getElementById("txtRaza").value=mascota.raza;
+document.getElementById("txtEdad").value=mascota.edad;
+document.getElementById("txtGenero").value=mascota.genero;
+document.getElementById("txtPeso").value=mascota.peso;
+document.getElementById("txtPropietario").value=mascota.propietario;
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+async function eliminarMascota(id){
+
+const confirmar=confirm("¿Deseas eliminar esta mascota?");
+
+if(!confirmar)return;
+
+try{
+
+const respuesta=await fetch(`${API_URL}/${id}`,{
+method:"DELETE"
+});
+
+if(respuesta.ok){
+
+alert("Mascota eliminada");
+
+cargarTabla();
+
+}else{
+
+alert("No se pudo eliminar");
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+function buscarMascota(){
+
+const texto=document.getElementById("buscador")
+.value
+.toLowerCase();
+
+const filas=document.querySelectorAll("#tablaMascotas tr");
+
+filas.forEach(fila=>{
+
+const contenido=fila.textContent.toLowerCase();
+
+fila.style.display=
+contenido.includes(texto)
+?""
+:"none";
+
+});
+
+}
+
+window.onload=cargarTabla;
+
+</script>
+
+</body>
+</html>
